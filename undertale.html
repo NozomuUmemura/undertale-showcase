@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UNDERTALE Showcase</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ["\"Noto Sans JP\"", "Inter", "sans-serif"],
+            pixel: ["\"Press Start 2P\"", "cursive"]
+          },
+          colors: {
+            undertale: {
+              bg: "#0d0d0d",
+              accent: "#ff5677",
+              accent2: "#10b981"
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  <style>
+    /* Global font */
+    body { 
+      font-family: 'Noto Sans JP', 'Inter', sans-serif; 
+      /* --- Added: 8-bit red heart custom cursor (hotspot centered) --- */
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23ff1111' d='M12 21s-7.2-4.5-10-10.3C-0.9 4.5 4.1 0 8.6 3.1 11 4.9 12 7 12 7s1-2.1 3.4-3.9C19.9 0 24.9 4.5 22 10.7 19.2 16.5 12 21 12 21z'/%3E%3C/svg%3E") 12 12, auto;
+    }
+    /* Ensure interactive elements inherit the heart cursor */
+    a, button, [role="button"], .cursor-pointer, input, select, textarea {
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23ff1111' d='M12 21s-7.2-4.5-10-10.3C-0.9 4.5 4.1 0 8.6 3.1 11 4.9 12 7 12 7s1-2.1 3.4-3.9C19.9 0 24.9 4.5 22 10.7 19.2 16.5 12 21 12 21z'/%3E%3C/svg%3E") 12 12, pointer;
+    }
+    /* Hover 時だけ青いハートに切替 */
+a:hover, button:hover, [role="button"]:hover, .cursor-pointer:hover {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23007bff' d='M12 21s-7.2-4.5-10-10.3C-0.9 4.5 4.1 0 8.6 3.1 11 4.9 12 7 12 7s1-2.1 3.4-3.9C19.9 0 24.9 4.5 22 10.7 19.2 16.5 12 21 12 21z'/%3E%3C/svg%3E") 12 12, pointer;
+}
+
+  </style>
+</head>
+<body class="bg-black text-gray-100 scroll-smooth">
+  <!-- Header -->
+  <header class="fixed top-0 inset-x-0 z-50 backdrop-blur bg-black/60 border-b border-white/10">
+    <div class="max-w-7xl mx-auto flex items-center justify-between p-4">
+      <h1 class="font-pixel text-lg tracking-wider flex items-center gap-1">UNDERTALE <span class="text-rose-500">❤</span></h1>
+      <nav>
+        <ul class="hidden md:flex gap-6 text-sm">
+          <li><a href="#hero" class="hover:text-undertale-accent">Top</a></li>
+          <li><a href="#characters" class="hover:text-undertale-accent">Characters</a></li>
+          <li><a href="#routes" class="hover:text-undertale-accent">Routes</a></li>
+          <li><a href="#music" class="hover:text-undertale-accent2">Megalovania</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="hero" class="relative h-screen w-full flex items-center justify-center bg-black">
+    <div class="relative z-10 text-center px-4" data-aos="fade-up">
+      <h2 class="font-pixel text-4xl md:text-6xl mb-6">UNDERTALE</h2>
+      <p class="text-lg md:text-xl mb-8">誰も死ななくていい　やさしいRPG</p>
+      <p class="text-sm md:text-base mb-12">あなたの選択が物語を変える。</p>
+      <a href="https://store.steampowered.com/app/391540/Undertale/" target="_blank" rel="noopener" class="inline-block bg-undertale-accent px-6 py-3 rounded-lg font-semibold shadow-lg hover:bg-undertale-accent2 transition">Play Now → Steam</a>
+    </div>
+  </section>
+
+  <!-- Characters FIRST -->
+  <section id="characters" class="bg-black/60 py-20">
+    <div class="max-w-6xl mx-auto px-6">
+      <h3 class="font-pixel text-3xl mb-12 text-center" data-aos="fade-left">Characters</h3>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-10 font-pixel text-sm leading-relaxed">
+        <!-- Frisk -->
+        <div class="bg-gray-800/70 rounded-xl overflow-hidden shadow-lg" data-aos="flip-left">
+          <img src="./Frisk.png" alt="Frisk" class="w-full h-56 object-contain bg-black" />
+          <div class="p-6">
+            <h4 class="text-lg mb-2">Frisk (You)</h4>
+            <p>「ケツイがみなぎった。」<br>プレイヤーが操作する人間の子ども。あなたの選択によって物語が導かれる。</p>
+          </div>
+        </div>
+        <!-- Flowey -->
+        <div class="bg-gray-800/70 rounded-xl overflow-hidden shadow-lg" data-aos="flip-left" data-aos-delay="50">
+          <img id="flowey-img" src="./Flowey.png" alt="Flowey" class="w-full h-56 object-contain bg-black cursor-pointer" />
+          <div class="p-6">
+            <h4 class="text-lg mb-2">Flowey</h4>
+            <p>「ハロー！　ボクはフラウィ。おはなのフラウィさ！」<br>一見かわいい花だが、本性は謎に包まれている。モットーは「殺すか、殺されるか」。</p>
+          </div>
+        </div>
+        <!-- Toriel -->
+        <div class="bg-gray-800/70 rounded-xl overflow-hidden shadow-lg" data-aos="flip-left" data-aos-delay="100">
+          <img src="./Triel.png" alt="Toriel" class="w-full h-56 object-contain bg-black" />
+          <div class="p-6">
+            <h4 class="text-lg mb-2">Toriel</h4>
+            <p>「なさけないわね…つみのないこどもをいじめるなんて…」<br>母性的なヤギのモンスター。あなたを守ろうとし、おいしいパイ作りが得意。</p>
+          </div>
+        </div>
+        <!-- Sans -->
+        <div class="bg-gray-800/70 rounded-xl overflow-hidden shadow-lg" data-aos="flip-left" data-aos-delay="150">
+          <img src="./Sans.png" alt="Sans" class="w-full h-56 object-contain bg-black" />
+          <div class="p-6">
+            <h4 class="text-lg mb-2">Sans</h4>
+            <p>ジョーク好きのスケルトン。「リセット認識」を備えた特異な存在<br>「…おまえサイアクなめにあわされたいか？」</p>
+          </div>
+        </div>
+        <!-- Papyrus -->
+        <div class="bg-gray-800/70 rounded-xl overflow-hidden shadow-lg" data-aos="flip-left" data-aos-delay="200">
+          <img src="./Papyrus.png" alt="Papyrus" class="w-full h-56 object-contain bg-black" />
+          <div class="p-6">
+            <h4 class="text-lg mb-2">Papyrus</h4>
+            <p>「動くな！　人間！」<br>Sans の弟で、ロイヤルガードに憧れる熱血スケルトン。スパゲッティが大好物。</p>
+          </div>
+        </div>
+        <!-- Chara -->
+        <div class="bg-gray-800/70 rounded-xl overflow-hidden shadow-lg" data-aos="flip-left" data-aos-delay="250">
+          <img src="./Chara.png" alt="Chara" class="w-full h-56 object-contain bg-black" />
+          <div class="p-6">
+            <h4 class="text-lg mb-2">Chara</h4>
+            <p>「お前の力で 私は死の淵から蘇った。」<br>地下世界に最初に落ちた人間。物語の核心に深く関わる存在。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Routes AFTER Characters -->
+  <section id="routes" class="max-w-6xl mx-auto py-20 px-6">
+    <h3 class="font-pixel text-3xl mb-12 text-center" data-aos="fade-right">Routes</h3>
+    <div class="grid md:grid-cols-3 gap-8 font-pixel text-sm leading-relaxed">
+      <div id="pacifist-card" class="cursor-pointer p-6 border border-white/10 rounded-xl bg-black/50 hover:bg-black/60 transition" data-aos="zoom-in" data-aos-delay="50">
+        <h4 class="text-xl mb-4 text-undertale-accent2">PACIFIST</h4>
+        <p>誰も倒さず、友情を育むことで到達する真のエンディング。心温まる結末が待っている。</p>
+      </div>
+      <div id="neutral-card" class="cursor-pointer p-6 border border-white/10 rounded-xl bg-black/50 hover:bg-black/60 transition" data-aos="zoom-in" data-aos-delay="100">
+        <h4 class="text-xl mb-4 text-yellow-300">NEUTRAL</h4>
+        <p>行動次第で複数のバリエーションが存在。あなたの選択が結末を形作る。</p>
+      </div>
+      <div id="genocide-card" class="cursor-pointer p-6 border border-white/10 rounded-xl bg-black/50 hover:bg-black/60 transition" data-aos="zoom-in" data-aos-delay="150">
+        <h4 class="text-xl mb-4 text-red-500">GENOCIDE</h4>
+        <p>すべての敵を倒した先に待つ、重い代償を伴うルート。覚悟のある者だけが進める。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- VS Sans - Megalovania Section -->
+  <section id="music" class="max-w-6xl mx-auto py-20 px-6">
+    <h3 class="font-pixel text-3xl mb-12 text-center" data-aos="fade-right">VS Sans - Megalovania</h3>
+    <div id="megalovania-container" class="relative pb-[56.25%] h-0 rounded-xl overflow-hidden shadow-xl" data-aos="zoom-in">
+      <video id="megalovania-video" class="absolute inset-0 w-full h-full" src="./Sans_battle.mp4" preload="metadata"></video>
+      <button id="megalovania-play" class="absolute inset-0 flex items-center justify-center text-6xl text-white/80 hover:text-undertale-accent font-pixel pointer-events-auto">
+        ▶
+      </button>
+    </div>
+  </section>
+
+  <!-- Toby Fox Section -->
+  <section class="py-16 bg-black/80" data-aos="fade-up">
+    <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center gap-8 px-6">
+      <img src="./Toby.png" alt="Toby Fox" class="w-40 h-auto rounded-full shadow-xl" />
+      <p class="text-sm leading-relaxed max-w-2xl">
+        <span class="font-semibold">Toby Fox（トビー・フォックス）</span> はインディーゲーム開発者・作曲家であり、「UNDERTALE」をほぼ一人で制作しました。
+        その後も続編的作品「DELTARUNE」を手掛け、ゲーム音楽界に多大な影響を与え続けています。
+      </p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-black/90 text-center p-6 text-xs">
+    © 2025 Toby Fox / 8-4, Ltd. このサイトはファンメイドの紹介ページであり、公式ではありません。
+  </footer>
+
+  
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({ once: true, duration: 700, easing: 'ease-out-cubic' });
+
+    // Smooth anchor scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', e => {
+        e.preventDefault();
+        document.querySelector(anchor.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    // Generic route video player
+    function playRouteVideo(src, closeBrowser = false) {
+      const overlay = document.createElement('div');
+      overlay.className = 'fixed inset-0 z-[9997] flex items-center justify-center bg-black';
+      document.body.appendChild(overlay);
+
+      const video = document.createElement('video');
+      video.src = src;
+      video.className = 'w-full h-full object-cover';
+      video.autoplay = true;
+      video.playsInline = true;
+      video.disablePictureInPicture = true;
+      overlay.appendChild(video);
+
+      const cleanUp = () => {
+        overlay.remove();
+        if (closeBrowser) {
+          try { window.close(); } catch (_) {}
+        }
+      };
+
+      video.onended = cleanUp;
+      overlay.addEventListener('click', cleanUp);
+    }
+
+// --- NEW: Genocide prompt overlay ---
+function showGenocidePrompt() {
+  /* ========= OVERLAY ========= */
+  const overlay = document.createElement('div');
+  overlay.id = 'genocide-prompt';
+  overlay.className =
+    'fixed inset-0 z-[9998] flex flex-col items-center justify-center bg-black/95 text-white font-pixel text-center p-6';
+  document.body.appendChild(overlay);
+
+  /* ========= Chara image ========= */
+  const charaImg = document.createElement('img');
+  charaImg.src = './Chara.png';
+  charaImg.alt = 'Chara';
+  charaImg.className =
+    'absolute bottom-4 left-4 w-32 h-auto object-contain pointer-events-none';
+  overlay.appendChild(charaImg);
+
+  /* ========= Message ========= */
+  const message = document.createElement('div');
+  message.className =
+    'space-y-2 mb-10 text-2xl leading-relaxed font-pixel tracking-widest text-red-600';
+  message.style.textShadow = '0 0 8px #ff0000,0 0 14px #880000';
+  message.style.animation = 'pulseText 2s infinite';
+  message.innerHTML =
+    '・・・私たちはついに極致に到達した・・・<br>' +
+    'ここにはもう私たちに必要なものはない・・・<br>' +
+    'こんな世界は今すぐ消し去り・・・<br>' +
+    '次へ進もう・・・';
+  overlay.appendChild(message);
+
+  /* ========= Buttons ========= */
+  const btnBox = document.createElement('div');
+  btnBox.className = 'flex gap-12';
+  overlay.appendChild(btnBox);
+
+  const baseBtnStyle =
+    'relative px-10 py-4 rounded-xl text-2xl font-pixel tracking-wider shadow-2xl overflow-hidden transition-transform duration-300';
+
+  // "けす" button — blood‑red, trembling
+  const eraseBtn = document.createElement('button');
+  eraseBtn.textContent = 'けす';
+  eraseBtn.className =
+    baseBtnStyle +
+    ' bg-red-700 hover:bg-red-800 text-white animate-pulse';
+  eraseBtn.style.textShadow = '0 0 6px #ff2222,0 0 12px #ff4444';
+  btnBox.appendChild(eraseBtn);
+
+  // "けさない" button — icy gray, subtle flicker
+  const keepBtn = document.createElement('button');
+  keepBtn.textContent = 'けさない';
+  keepBtn.className =
+    baseBtnStyle +
+    ' bg-gray-700 hover:bg-gray-800 text-gray-100 animate-pulse';
+  keepBtn.style.textShadow = '0 0 6px #888888,0 0 12px #bbbbbb';
+  btnBox.appendChild(keepBtn);
+
+  /* ========= Spooky BGM ========= */
+  const bgm = new Audio('./ominous.mp4');
+  bgm.loop = true;
+  bgm.volume = 0.6;
+  bgm.play();
+
+  const stopBgm = () => {
+    bgm.pause();
+    bgm.currentTime = 0;
+  };
+
+  /* ========= Actions ========= */
+  eraseBtn.addEventListener('click', () => {
+    stopBgm();
+    try {
+      window.close();
+    } catch (_) {}
+  });
+
+  keepBtn.addEventListener('click', () => {
+    stopBgm();
+    overlay.remove();
+    playRouteVideo('./Genocide.mp4', true);
+  });
+
+  // Click outside buttons => close overlay
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) {
+      stopBgm();
+      overlay.remove();
+    }
+  });
+
+  /* ========= Tiny CSS keyframes injected ========= */
+  const styleEl = document.createElement('style');
+  styleEl.textContent = `@keyframes pulseText {0%,100%{opacity:0.7}50%{opacity:1}}`;
+  document.head.appendChild(styleEl);
+}
+
+document
+  .getElementById('pacifist-card')
+  .addEventListener('click', () => playRouteVideo('./Pacifist.mp4'));
+document
+  .getElementById('neutral-card')
+  .addEventListener('click', () => playRouteVideo('./Neutral.mp4'));
+document
+  .getElementById('genocide-card')
+  .addEventListener('click', showGenocidePrompt);
+
+
+    // Megalovania video controls
+    const megVideo = document.getElementById('megalovania-video');
+    const megPlay = document.getElementById('megalovania-play');
+
+    megVideo.setAttribute('controls', '');
+    megVideo.controlsList = 'nodownload';
+
+    megPlay.addEventListener('click', () => {
+      megVideo.play();
+      megPlay.style.display = 'none';
+    });
+
+    megVideo.addEventListener('pause', () => {
+      megPlay.style.display = 'flex';
+    });
+
+    megVideo.addEventListener('click', () => {
+      if (megVideo.paused) {
+        megVideo.play();
+        megPlay.style.display = 'none';
+      } else {
+        megVideo.pause();
+      }
+    });
+
+    megVideo.addEventListener('ended', () => {
+      megPlay.style.display = 'flex';
+    });
+    // ---------- Flowey の効果音 ---------- //
+const floweySE = new Audio('./Flowey.mp4');
+floweySE.volume = 0.8;        // 音量調整（0.0 – 1.0）
+floweySE.preload = 'auto';    // 読み込み推奨
+
+document.getElementById('flowey-img').addEventListener('click', () => {
+  floweySE.currentTime = 0;   // 途中だったら頭出し
+  floweySE.play();
+});
+
+  </script>
+</body>
+</html>
