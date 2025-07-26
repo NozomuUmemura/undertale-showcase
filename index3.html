@@ -1,0 +1,1699 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UNDERTALE - The Ultimate Experience</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700;900&family=Press+Start+2P&family=DotGothic16&display=swap" rel="stylesheet" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ["\"Noto Sans JP\"", "Inter", "sans-serif"],
+            pixel: ["\"Press Start 2P\"", "cursive"],
+            dot: ["\"DotGothic16\"", "sans-serif"]
+          },
+          colors: {
+            undertale: {
+              bg: "#0d0d0d",
+              accent: "#ff5677",
+              accent2: "#10b981",
+              yellow: "#ffd700",
+              blue: "#00bfff",
+              purple: "#9b59b6"
+            }
+          },
+          animation: {
+            'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'float': 'float 6s ease-in-out infinite',
+            'glitch': 'glitch 2s linear infinite',
+            'heartbeat': 'heartbeat 1.5s ease-in-out infinite',
+            'fadeInUp': 'fadeInUp 1s ease-out',
+            'text-glow': 'text-glow 2s ease-in-out infinite',
+            'shake': 'shake 0.5s ease-in-out infinite',
+            'typewriter': 'typewriter 3s steps(40) 1s forwards',
+            'blink': 'blink 1s infinite',
+            'damage': 'damage 0.5s ease-in-out',
+            'item-float': 'item-float 2s ease-in-out infinite'
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-20px)' }
+            },
+            glitch: {
+              '0%, 100%': { transform: 'translateX(0)' },
+              '20%': { transform: 'translateX(-2px)' },
+              '40%': { transform: 'translateX(2px)' },
+              '60%': { transform: 'translateX(-1px)' },
+              '80%': { transform: 'translateX(1px)' }
+            },
+            heartbeat: {
+              '0%, 100%': { transform: 'scale(1)' },
+              '50%': { transform: 'scale(1.1)' }
+            },
+            fadeInUp: {
+              '0%': { opacity: '0', transform: 'translateY(20px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' }
+            },
+            'text-glow': {
+              '0%, 100%': { textShadow: '0 0 10px rgba(255, 86, 119, 0.5)' },
+              '50%': { textShadow: '0 0 20px rgba(255, 86, 119, 0.8), 0 0 30px rgba(255, 86, 119, 0.6)' }
+            },
+            shake: {
+              '0%, 100%': { transform: 'translateX(0)' },
+              '10%, 30%, 50%, 70%, 90%': { transform: 'translateX(-3px)' },
+              '20%, 40%, 60%, 80%': { transform: 'translateX(3px)' }
+            },
+            typewriter: {
+              '0%': { width: '0' },
+              '100%': { width: '100%' }
+            },
+            blink: {
+              '0%, 50%': { opacity: '1' },
+              '51%, 100%': { opacity: '0' }
+            },
+            damage: {
+              '0%, 100%': { opacity: '1' },
+              '25%, 75%': { opacity: '0' }
+            },
+            'item-float': {
+              '0%, 100%': { transform: 'translateY(0) rotate(0deg)' },
+              '50%': { transform: 'translateY(-10px) rotate(5deg)' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  <style>
+    /* Global styles */
+    body { 
+      font-family: 'Noto Sans JP', 'Inter', sans-serif;
+      overflow-x: hidden;
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23ff1111' d='M12 21s-7.2-4.5-10-10.3C-0.9 4.5 4.1 0 8.6 3.1 11 4.9 12 7 12 7s1-2.1 3.4-3.9C19.9 0 24.9 4.5 22 10.7 19.2 16.5 12 21 12 21z'/%3E%3C/svg%3E") 12 12, auto;
+    }
+    
+    /* Interactive cursor */
+    a, button, [role="button"], .cursor-pointer, input, select, textarea {
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23ff1111' d='M12 21s-7.2-4.5-10-10.3C-0.9 4.5 4.1 0 8.6 3.1 11 4.9 12 7 12 7s1-2.1 3.4-3.9C19.9 0 24.9 4.5 22 10.7 19.2 16.5 12 21 12 21z'/%3E%3C/svg%3E") 12 12, pointer;
+    }
+    
+    a:hover, button:hover, [role="button"]:hover, .cursor-pointer:hover {
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%2300bfff' d='M12 21s-7.2-4.5-10-10.3C-0.9 4.5 4.1 0 8.6 3.1 11 4.9 12 7 12 7s1-2.1 3.4-3.9C19.9 0 24.9 4.5 22 10.7 19.2 16.5 12 21 12 21z'/%3E%3C/svg%3E") 12 12, pointer;
+    }
+    
+    /* Scrollbar styling */
+    ::-webkit-scrollbar {
+      width: 12px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: #0d0d0d;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: #ff5677;
+      border-radius: 6px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: #ff7799;
+    }
+    
+    /* Glitch text effect */
+    .glitch {
+      position: relative;
+      color: white;
+      font-size: inherit;
+    }
+    
+    .glitch::before,
+    .glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .glitch::before {
+      animation: glitch-1 0.5s infinite;
+      color: #00ffff;
+      z-index: -1;
+    }
+    
+    .glitch::after {
+      animation: glitch-2 0.5s infinite;
+      color: #ff00ff;
+      z-index: -2;
+    }
+    
+    @keyframes glitch-1 {
+      0%, 100% { clip-path: inset(0 0 0 0); }
+      20% { clip-path: inset(20% 0 60% 0); }
+      40% { clip-path: inset(50% 0 20% 0); }
+      60% { clip-path: inset(10% 0 80% 0); }
+      80% { clip-path: inset(80% 0 10% 0); }
+    }
+    
+    @keyframes glitch-2 {
+      0%, 100% { clip-path: inset(0 0 0 0); transform: translateX(0); }
+      20% { clip-path: inset(80% 0 10% 0); transform: translateX(-2px); }
+      40% { clip-path: inset(10% 0 80% 0); transform: translateX(2px); }
+      60% { clip-path: inset(50% 0 20% 0); transform: translateX(-1px); }
+      80% { clip-path: inset(20% 0 60% 0); transform: translateX(1px); }
+    }
+    
+    /* Parallax stars */
+    .stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle 4s infinite;
+    }
+    
+    @keyframes twinkle {
+      0%, 100% { opacity: 0; }
+      50% { opacity: 1; }
+    }
+    
+    /* Battle box style */
+    .battle-box {
+      border: 4px solid white;
+      background: black;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .battle-box::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, #ff5677, #00bfff, #ffd700, #9b59b6);
+      z-index: -1;
+      filter: blur(5px);
+      opacity: 0.7;
+      animation: rotate 3s linear infinite;
+    }
+    
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* Dialog box */
+    .dialog-box {
+      background: black;
+      border: 4px solid white;
+      padding: 20px;
+      position: relative;
+      font-family: 'DotGothic16', monospace;
+    }
+    
+    .dialog-box::before {
+      content: '* ';
+      position: absolute;
+      left: 20px;
+      top: 20px;
+    }
+    
+    /* Soul animation */
+    @keyframes soul-float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      25% { transform: translateY(-10px) rotate(-5deg); }
+      75% { transform: translateY(10px) rotate(5deg); }
+    }
+    
+    .soul {
+      animation: soul-float 3s ease-in-out infinite;
+    }
+    
+    /* Loading animation */
+    .loader {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: #ff5677;
+      animation: spin 1s ease-in-out infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    /* Neon glow effects */
+    .neon-text {
+      text-shadow: 
+        0 0 10px #ff5677,
+        0 0 20px #ff5677,
+        0 0 30px #ff5677,
+        0 0 40px #ff5677;
+    }
+    
+    .neon-blue {
+      text-shadow: 
+        0 0 10px #00bfff,
+        0 0 20px #00bfff,
+        0 0 30px #00bfff,
+        0 0 40px #00bfff;
+    }
+    
+    /* Battle UI */
+    .battle-btn {
+      font-family: 'DotGothic16', monospace;
+      border: 2px solid white;
+      background: black;
+      color: white;
+      padding: 8px 16px;
+      transition: all 0.2s;
+    }
+    
+    .battle-btn:hover {
+      background: white;
+      color: black;
+    }
+    
+    .battle-btn.active {
+      background: yellow;
+      color: black;
+      border-color: yellow;
+    }
+    
+    /* Item effects */
+    .inverted {
+      filter: invert(1);
+    }
+    
+    .grayscale {
+      filter: grayscale(1);
+    }
+    
+    /* Hidden items */
+    .hidden-item {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    
+    .hidden-item:hover {
+      opacity: 0.7;
+    }
+    
+    .hidden-item.found {
+      opacity: 1;
+      animation: item-float 2s ease-in-out infinite;
+    }
+    
+    /* Stats display */
+    .stats-display {
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      background: black;
+      border: 2px solid white;
+      padding: 15px;
+      font-family: 'DotGothic16', monospace;
+      z-index: 1000;
+      min-width: 200px;
+    }
+    
+    .stat-line {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px;
+    }
+    
+    /* Inventory window */
+    .inventory-window {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: black;
+      border: 4px solid white;
+      padding: 20px;
+      font-family: 'DotGothic16', monospace;
+      z-index: 2000;
+      min-width: 400px;
+      max-width: 600px;
+      display: none;
+    }
+    
+    .inventory-item {
+      padding: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+      margin-bottom: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .inventory-item:hover {
+      background: white;
+      color: black;
+    }
+    
+    .item-actions {
+      display: none;
+    }
+    
+    .inventory-item:hover .item-actions {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .item-action-btn {
+      padding: 2px 8px;
+      border: 1px solid white;
+      background: black;
+      color: white;
+      font-size: 12px;
+    }
+    
+    .item-action-btn:hover {
+      background: white;
+      color: black;
+    }
+  </style>
+</head>
+<body class="bg-black text-gray-100 scroll-smooth">
+  <!-- Opening Video -->
+  <div id="opening-screen" class="fixed inset-0 z-[10000] bg-black flex items-center justify-center cursor-pointer">
+    <video id="opening-video"
+       class="w-full h-full object-cover cursor-pointer"
+       autoplay **muted playsinline**>
+
+      <source src="./opening.mp4" type="video/mp4">
+    </video>
+    <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 font-pixel text-white text-sm animate-pulse">
+      Click to continue...
+    </div>
+  </div>
+
+  <!-- Parallax Stars Background -->
+  <div class="stars" id="stars-container"></div>
+  
+  <!-- Loading Screen -->
+  <div id="loading-screen" class="fixed inset-0 z-[9999] bg-black flex items-center justify-center" style="display: none;">
+    <div class="text-center">
+      <div class="loader mx-auto mb-4"></div>
+      <p class="font-pixel text-sm animate-pulse">LOADING...</p>
+    </div>
+  </div>
+
+  <!-- Stats Display -->
+  <div class="stats-display">
+    <div class="stat-line">
+      <span class="text-red-500">HP</span>
+      <span id="hp-stat">20/20</span>
+    </div>
+    <div class="stat-line">
+      <span class="text-yellow-400">ATK</span>
+      <span id="atk-stat">0</span>
+    </div>
+    <div class="stat-line">
+      <span class="text-blue-400">DEF</span>
+      <span id="def-stat">0</span>
+    </div>
+    <div class="stat-line">
+      <span class="text-green-400">ITEM</span>
+      <span id="item-count">0</span>
+    </div>
+    <button id="open-inventory" class="mt-3 w-full battle-btn text-sm">
+      INVENTORY
+    </button>
+  </div>
+
+  <!-- Inventory Window -->
+  <div id="inventory-window" class="inventory-window">
+    <h3 class="font-pixel text-lg mb-4 text-center">INVENTORY</h3>
+    <div id="inventory-list"></div>
+    <button id="close-inventory" class="mt-4 w-full battle-btn">
+      CLOSE
+    </button>
+  </div>
+
+  <!-- Hidden Items -->
+  <div class="hidden-item" id="item-pie" style="top: 800px; left: 100px;" data-item="pie">🥧</div>
+  <div class="hidden-item" id="item-knife" style="top: 1400px; right: 150px;" data-item="knife">🔪</div>
+  <div class="hidden-item" id="item-locket" style="top: 2000px; left: 50%;" data-item="locket">💎</div>
+  <div class="hidden-item" id="item-stick" style="top: 2600px; left: 200px;" data-item="stick">🌿</div>
+  <div class="hidden-item" id="item-bandage" style="top: 3200px; right: 100px;" data-item="bandage">🩹</div>
+
+  <!-- Header -->
+  <header class="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-black/70 border-b border-white/20">
+    <div class="max-w-7xl mx-auto flex items-center justify-between p-4">
+      <h1 class="font-pixel text-lg tracking-wider flex items-center gap-2 animate-pulse-slow">
+        <span class="glitch" data-text="UNDERTALE">UNDERTALE</span>
+        <span class="text-rose-500 animate-heartbeat">❤</span>
+      </h1>
+      <nav>
+        <ul class="hidden md:flex gap-6 text-sm">
+          <li><a href="#hero" class="nav-link relative hover:text-undertale-accent transition-all duration-300">
+            <span class="hover:animate-glitch">Top</span>
+          </a></li>
+          <li><a href="#characters" class="nav-link relative hover:text-undertale-accent transition-all duration-300">
+            <span class="hover:animate-glitch">Characters</span>
+          </a></li>
+          <li><a href="#routes" class="nav-link relative hover:text-undertale-accent transition-all duration-300">
+            <span class="hover:animate-glitch">Routes</span>
+          </a></li>
+          <li><a href="#battle" class="nav-link relative hover:text-undertale-accent2 transition-all duration-300">
+            <span class="hover:animate-glitch">Battle</span>
+          </a></li>
+          <li><a href="#music" class="nav-link relative hover:text-undertale-purple transition-all duration-300">
+            <span class="hover:animate-glitch">Music</span>
+          </a></li>
+        </ul>
+        <!-- Mobile menu button -->
+        <button id="mobile-menu-btn" class="md:hidden text-2xl hover:text-undertale-accent">
+          ☰
+        </button>
+      </nav>
+    </div>
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-t border-white/20">
+      <ul class="p-4 space-y-3 text-sm font-pixel">
+        <li><a href="#hero" class="block hover:text-undertale-accent">Top</a></li>
+        <li><a href="#characters" class="block hover:text-undertale-accent">Characters</a></li>
+        <li><a href="#routes" class="block hover:text-undertale-accent">Routes</a></li>
+        <li><a href="#battle" class="block hover:text-undertale-accent2">Battle</a></li>
+        <li><a href="#music" class="block hover:text-undertale-purple">Music</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="hero" class="relative min-h-screen w-full flex items-center justify-center overflow-hidden">
+    <!-- Animated background -->
+    <div class="absolute inset-0 bg-gradient-to-b from-black via-gray-900 to-black"></div>
+    <div class="absolute inset-0 opacity-30">
+      <div class="absolute top-20 left-20 w-96 h-96 bg-undertale-accent rounded-full filter blur-3xl animate-pulse-slow"></div>
+      <div class="absolute bottom-20 right-20 w-96 h-96 bg-undertale-blue rounded-full filter blur-3xl animate-pulse-slow" style="animation-delay: 1s;"></div>
+    </div>
+    
+    <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
+      <h2 class="font-pixel text-5xl md:text-7xl mb-6 animate-fadeInUp neon-text" data-aos="zoom-in" data-aos-duration="1500">
+        UNDERTALE
+      </h2>
+      <p class="text-xl md:text-2xl mb-4 font-dot animate-fadeInUp" style="animation-delay: 0.3s;" data-aos="fade-up" data-aos-delay="200">
+        誰も死ななくていい　やさしいRPG
+      </p>
+      <p class="text-lg md:text-xl mb-12 animate-fadeInUp" style="animation-delay: 0.6s;" data-aos="fade-up" data-aos-delay="400">
+        <span class="inline-block animate-float">あなたの選択が</span>
+        <span class="inline-block animate-float" style="animation-delay: 0.2s;">物語を</span>
+        <span class="inline-block animate-float" style="animation-delay: 0.4s;">変える。</span>
+      </p>
+      
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fadeInUp" style="animation-delay: 0.9s;">
+        <a href="https://store.steampowered.com/app/391540/Undertale/" target="_blank" rel="noopener" 
+           class="battle-box px-8 py-4 font-pixel text-lg hover:scale-105 transition-transform duration-300 group">
+          <span class="relative z-10 flex items-center gap-2">
+            Play Now 
+            <span class="inline-block group-hover:translate-x-2 transition-transform">→</span>
+          </span>
+        </a>
+        <button id="start-journey" class="px-8 py-4 bg-undertale-purple text-white font-pixel rounded-lg hover:bg-undertale-purple/80 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-undertale-purple/50">
+          Start Journey
+        </button>
+      </div>
+      
+      <!-- Floating souls -->
+      <div class="absolute -z-10 w-full h-full">
+        <div class="soul absolute top-1/4 left-1/4 text-4xl opacity-30">❤</div>
+        <div class="soul absolute bottom-1/4 right-1/4 text-3xl opacity-30" style="animation-delay: 1s;">💙</div>
+        <div class="soul absolute top-1/3 right-1/3 text-2xl opacity-30" style="animation-delay: 2s;">💚</div>
+      </div>
+    </div>
+    
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+      <div class="font-pixel text-xs opacity-70">SCROLL DOWN</div>
+      <div class="text-2xl text-center mt-2">↓</div>
+    </div>
+  </section>
+
+  <!-- Characters Section -->
+  <section id="characters" class="relative py-20 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-r from-black via-gray-900 to-black opacity-50"></div>
+    
+    <div class="relative z-10 max-w-7xl mx-auto px-6">
+      <h3 class="font-pixel text-4xl md:text-5xl mb-16 text-center glitch" data-text="Characters" data-aos="fade-down">
+        Characters
+      </h3>
+      
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        <!-- Frisk Card -->
+        <div class="character-card group relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900 to-gray-800 border border-white/10 hover:border-undertale-accent/50 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-undertale-accent/20" data-aos="flip-left">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          <img src="./Frisk.png" alt="Frisk" class="w-full h-56 object-contain bg-black/50 group-hover:scale-110 transition-transform duration-500" />
+          <div class="p-6 relative z-10">
+            <h4 class="font-pixel text-xl mb-3 text-undertale-yellow group-hover:animate-text-glow">Frisk</h4>
+            <p class="text-sm leading-relaxed opacity-90 group-hover:opacity-100 transition-opacity">
+              <span class="font-dot text-undertale-accent">「ケツイがみなぎった。」</span><br>
+              プレイヤーが操作する人間の子ども。あなたの選択によって物語が導かれる。
+            </p>
+            <div class="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+              <span class="text-xs font-pixel text-undertale-yellow">LV 1 • HP 20/20</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Flowey Card -->
+        <div class="character-card group relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900 to-gray-800 border border-white/10 hover:border-yellow-500/50 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-yellow-500/20" data-aos="flip-left" data-aos-delay="50">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          <img id="flowey-img" src="./Flowey.png" alt="Flowey" class="w-full h-56 object-contain bg-black/50 cursor-pointer group-hover:scale-110 transition-transform duration-500 hover:animate-shake" />
+          <div class="p-6 relative z-10">
+            <h4 class="font-pixel text-xl mb-3 text-yellow-400 group-hover:animate-text-glow">Flowey</h4>
+            <p class="text-sm leading-relaxed opacity-90 group-hover:opacity-100 transition-opacity">
+              <span class="font-dot text-yellow-300">「この世界じゃ、殺すか殺されるか…」</span><br>
+              一見かわいい花だが、本性は謎に包まれている。
+            </p>
+            <div class="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+              <span class="text-xs font-pixel text-red-500">??? • HP ???</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Toriel Card -->
+        <div class="character-card group relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900 to-gray-800 border border-white/10 hover:border-purple-500/50 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/20" data-aos="flip-left" data-aos-delay="100">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          <img src="./Triel.png" alt="Toriel" class="w-full h-56 object-contain bg-black/50 group-hover:scale-110 transition-transform duration-500" />
+          <div class="p-6 relative z-10">
+            <h4 class="font-pixel text-xl mb-3 text-purple-400 group-hover:animate-text-glow">Toriel</h4>
+            <p class="text-sm leading-relaxed opacity-90 group-hover:opacity-100 transition-opacity">
+              <span class="font-dot text-purple-300">「なさけないわね…」</span><br>
+              母性的なヤギのモンスター。あなたを守ろうとする。
+            </p>
+            <div class="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+              <span class="text-xs font-pixel text-purple-300">LV ? • HP 440</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sans Card -->
+        <div class="character-card group relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900 to-gray-800 border border-white/10 hover:border-blue-500/50 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/20" data-aos="flip-left" data-aos-delay="150">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          <img id="sans-img" src="./Sans.png" alt="Sans" class="w-full h-56 object-contain bg-black/50 cursor-pointer group-hover:scale-110 transition-transform duration-500" />
+          <div class="p-6 relative z-10">
+            <h4 class="font-pixel text-xl mb-3 text-blue-400 group-hover:animate-text-glow">Sans</h4>
+            <p class="text-sm leading-relaxed opacity-90 group-hover:opacity-100 transition-opacity">
+              <span class="font-dot text-blue-300">「きれいごとは、なしだ。」</span><br>
+              ジョーク好きのスケルトン。裁きの時を知る者。
+            </p>
+            <div class="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+              <span class="text-xs font-pixel text-blue-300">LV ? • HP 1</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Papyrus Card -->
+        <div class="character-card group relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900 to-gray-800 border border-white/10 hover:border-orange-500/50 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-orange-500/20" data-aos="flip-left" data-aos-delay="200">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          <img src="./Papyrus.png" alt="Papyrus" class="w-full h-56 object-contain bg-black/50 group-hover:scale-110 transition-transform duration-500" />
+          <div class="p-6 relative z-10">
+            <h4 class="font-pixel text-xl mb-3 text-orange-400 group-hover:animate-text-glow">Papyrus</h4>
+            <p class="text-sm leading-relaxed opacity-90 group-hover:opacity-100 transition-opacity">
+              <span class="font-dot text-orange-300">「ニェヘヘヘ！」</span><br>
+              Sansの弟。偉大なるパピルス様！
+            </p>
+            <div class="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+              <span class="text-xs font-pixel text-orange-300">LV ? • HP 680</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Undyne Card -->
+        <div class="character-card group relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900 to-gray-800 border border-white/10 hover:border-cyan-500/50 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/20" data-aos="flip-left" data-aos-delay="250">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          <img id="undyne-img" src="./Undyne.png" alt="Undyne" class="w-full h-56 object-contain bg-black/50 cursor-pointer group-hover:scale-110 transition-transform duration-500" />
+          <div class="p-6 relative z-10">
+            <h4 class="font-pixel text-xl mb-3 text-cyan-400 group-hover:animate-text-glow">Undyne</h4>
+            <p class="text-sm leading-relaxed opacity-90 group-hover:opacity-100 transition-opacity">
+              <span class="font-dot text-cyan-300">「NGAHHH!!!」</span><br>
+              王国騎士団長。正義に燃える魚人戦士。
+            </p>
+            <div class="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+              <span class="text-xs font-pixel text-cyan-300">LV ? • HP 1500</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Alphys Card -->
+        <div class="character-card group relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900 to-gray-800 border border-white/10 hover:border-yellow-500/50 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-yellow-500/20" data-aos="flip-left" data-aos-delay="300">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          <img src="./Alphys.png" alt="Alphys" class="w-full h-56 object-contain bg-black/50 group-hover:scale-110 transition-transform duration-500" />
+          <div class="p-6 relative z-10">
+            <h4 class="font-pixel text-xl mb-3 text-yellow-400 group-hover:animate-text-glow">Alphys</h4>
+            <p class="text-sm leading-relaxed opacity-90 group-hover:opacity-100 transition-opacity">
+              <span class="font-dot text-yellow-300">「あ、あの…」</span><br>
+              王国の科学者。アニメとロボットが大好き。
+            </p>
+            <div class="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+              <span class="text-xs font-pixel text-yellow-300">LV ? • HP ???</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Asgore Card -->
+        <div class="character-card group relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900 to-gray-800 border border-white/10 hover:border-red-500/50 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-red-500/20" data-aos="flip-left" data-aos-delay="350">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          <img src="./Asgore.png" alt="Asgore" class="w-full h-56 object-contain bg-black/50 group-hover:scale-110 transition-transform duration-500" />
+          <div class="p-6 relative z-10">
+            <h4 class="font-pixel text-xl mb-3 text-red-400 group-hover:animate-text-glow">Asgore</h4>
+            <p class="text-sm leading-relaxed opacity-90 group-hover:opacity-100 transition-opacity">
+              <span class="font-dot text-red-300">「人間よ…」</span><br>
+              地底の王。優しくも悲しい運命を背負う。
+            </p>
+            <div class="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+              <span class="text-xs font-pixel text-red-300">LV ? • HP 3500</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Asriel Card -->
+        <div class="character-card group relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900 to-gray-800 border border-white/10 hover:border-green-500/50 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-green-500/20" data-aos="flip-left" data-aos-delay="400">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          <img id="asriel-img" src="./Asriel.png" alt="Asriel" class="w-full h-56 object-contain bg-black/50 cursor-pointer group-hover:scale-110 transition-transform duration-500" />
+          <div class="p-6 relative z-10">
+            <h4 class="font-pixel text-xl mb-3 text-green-400 group-hover:animate-text-glow">Asriel</h4>
+            <p class="text-sm leading-relaxed opacity-90 group-hover:opacity-100 transition-opacity">
+              <span class="font-dot text-green-300">「友達になろうよ！」</span><br>
+              王子。純粋な心を持つモンスターの子供。
+            </p>
+            <div class="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+              <span class="text-xs font-pixel text-green-300">LV ? • HP ???</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mettaton Card -->
+        <div class="character-card group relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900 to-gray-800 border border-white/10 hover:border-pink-500/50 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-pink-500/20" data-aos="flip-left" data-aos-delay="450">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          <img src="./Mettaton.png" alt="Mettaton" class="w-full h-56 object-contain bg-black/50 group-hover:scale-110 transition-transform duration-500" />
+          <div class="p-6 relative z-10">
+            <h4 class="font-pixel text-xl mb-3 text-pink-400 group-hover:animate-text-glow">Mettaton</h4>
+            <p class="text-sm leading-relaxed opacity-90 group-hover:opacity-100 transition-opacity">
+              <span class="font-dot text-pink-300">「OH YES!」</span><br>
+              地底のスーパースター。エンターテイナーロボット。
+            </p>
+            <div class="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+              <span class="text-xs font-pixel text-pink-300">LV ? • HP 1600</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chara Card -->
+        <div class="character-card group relative overflow-hidden rounded-2xl bg-gradient-to-br from-red-900 to-gray-900 border border-red-500/30 hover:border-red-500/70 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-red-500/30" data-aos="flip-left" data-aos-delay="500">
+          <div class="absolute inset-0 bg-gradient-to-t from-red-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          <img src="./Chara.png" alt="Chara" class="w-full h-56 object-contain bg-black/50 group-hover:scale-110 transition-transform duration-500 group-hover:animate-glitch" />
+          <div class="p-6 relative z-10">
+            <h4 class="font-pixel text-xl mb-3 text-red-500 group-hover:animate-text-glow">Chara</h4>
+            <p class="text-sm leading-relaxed opacity-90 group-hover:opacity-100 transition-opacity">
+              <span class="font-dot text-red-400">「パートナー。」</span><br>
+              最初に落ちた人間。真実を知る者。
+            </p>
+            <div class="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+              <span class="text-xs font-pixel text-red-500 animate-glitch">LV ??? • HP ???</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Routes Section -->
+  <section id="routes" class="relative py-20 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-black via-gray-900 to-black"></div>
+    
+    <div class="relative z-10 max-w-6xl mx-auto px-6">
+      <h3 class="font-pixel text-4xl md:text-5xl mb-16 text-center" data-aos="fade-up">
+        <span class="glitch" data-text="Choose Your Path">Choose Your Path</span>
+      </h3>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Pacifist Route -->
+        <div id="pacifist-card" class="route-card group cursor-pointer relative overflow-hidden rounded-2xl border-2 border-green-500/30 hover:border-green-500 transition-all duration-500 hover:scale-105" data-aos="zoom-in" data-aos-delay="100">
+          <div class="absolute inset-0 bg-gradient-to-br from-green-900/20 to-black group-hover:from-green-800/40 transition-all duration-500"></div>
+          <div class="relative z-10 p-8">
+            <div class="text-6xl mb-4 text-center animate-float">💚</div>
+            <h4 class="font-pixel text-2xl mb-4 text-green-400 text-center neon-text">PACIFIST</h4>
+            <p class="text-sm leading-relaxed text-center opacity-90">
+              誰も倒さず、友情を育む道。<br>
+              真の幸せがここにある。
+            </p>
+            <div class="mt-6 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+              <span class="font-pixel text-xs text-green-300">→ TRUE ENDING</span>
+            </div>
+          </div>
+          <div class="absolute -bottom-20 -right-20 w-40 h-40 bg-green-500 rounded-full filter blur-3xl opacity-20 group-hover:opacity-40 transition-opacity duration-500"></div>
+        </div>
+
+        <!-- Neutral Route -->
+        <div id="neutral-card" class="route-card group cursor-pointer relative overflow-hidden rounded-2xl border-2 border-yellow-500/30 hover:border-yellow-500 transition-all duration-500 hover:scale-105" data-aos="zoom-in" data-aos-delay="200">
+          <div class="absolute inset-0 bg-gradient-to-br from-yellow-900/20 to-black group-hover:from-yellow-800/40 transition-all duration-500"></div>
+          <div class="relative z-10 p-8">
+            <div class="text-6xl mb-4 text-center animate-float" style="animation-delay: 0.5s;">💛</div>
+            <h4 class="font-pixel text-2xl mb-4 text-yellow-400 text-center neon-text">NEUTRAL</h4>
+            <p class="text-sm leading-relaxed text-center opacity-90">
+              あなたの選択が結末を決める。<br>
+              無数の可能性が存在する。
+            </p>
+            <div class="mt-6 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+              <span class="font-pixel text-xs text-yellow-300">→ ??? ENDINGS</span>
+            </div>
+          </div>
+          <div class="absolute -bottom-20 -right-20 w-40 h-40 bg-yellow-500 rounded-full filter blur-3xl opacity-20 group-hover:opacity-40 transition-opacity duration-500"></div>
+        </div>
+
+        <!-- Genocide Route -->
+        <div id="genocide-card" class="route-card group cursor-pointer relative overflow-hidden rounded-2xl border-2 border-red-500/30 hover:border-red-500 transition-all duration-500 hover:scale-105" data-aos="zoom-in" data-aos-delay="300">
+          <div class="absolute inset-0 bg-gradient-to-br from-red-900/20 to-black group-hover:from-red-800/40 transition-all duration-500"></div>
+          <div class="relative z-10 p-8">
+            <div class="text-6xl mb-4 text-center animate-float animate-glitch" style="animation-delay: 1s;">🖤</div>
+            <h4 class="font-pixel text-2xl mb-4 text-red-500 text-center glitch" data-text="GENOCIDE">GENOCIDE</h4>
+            <p class="text-sm leading-relaxed text-center opacity-90">
+              すべてを消し去る道。<br>
+              <span class="text-red-400">後戻りはできない。</span>
+            </p>
+            <div class="mt-6 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+              <span class="font-pixel text-xs text-red-400 animate-glitch">→ BAD TIME</span>
+            </div>
+          </div>
+          <div class="absolute -bottom-20 -right-20 w-40 h-40 bg-red-500 rounded-full filter blur-3xl opacity-20 group-hover:opacity-40 transition-opacity duration-500"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Battle System Section -->
+  <section id="battle" class="relative py-20 overflow-hidden bg-gradient-to-b from-black via-purple-900/10 to-black">
+    <div class="max-w-6xl mx-auto px-6">
+      <h3 class="font-pixel text-4xl md:text-5xl mb-16 text-center" data-aos="fade-down">
+        <span class="neon-text">Battle System</span>
+      </h3>
+      
+      <div class="text-center mb-8">
+        <button id="start-battle" class="battle-btn text-lg font-pixel px-6 py-3">
+          START BATTLE
+        </button>
+      </div>
+      
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div data-aos="fade-right">
+          <div class="dialog-box mb-8">
+            <p class="ml-4 font-pixel text-lg">
+              * UNDERTALEの戦闘は<br>
+              * 弾幕STGとRPGの融合<br>
+              * あなたの<span class="text-red-500">SOUL</span>を操作して<br>
+              * 攻撃を避けよう！
+            </p>
+          </div>
+          
+          <div class="bg-black/50 rounded-lg p-4 border border-white/20">
+            <h5 class="font-pixel text-lg mb-4 text-center">操作方法</h5>
+            <div class="space-y-2 font-dot">
+              <p>W / ↑ : 上移動</p>
+              <p>A / ← : 左移動</p>
+              <p>S / ↓ : 下移動</p>
+              <p>D / → : 右移動</p>
+              <p>Z / Enter : 決定</p>
+              <p>X / Shift : キャンセル</p>
+            </div>
+          </div>
+        </div>
+        
+        <div data-aos="fade-left">
+          <div class="battle-box p-8 h-96 flex flex-col">
+            <!-- Enemy Display -->
+            <div id="enemy-display" class="flex-1 flex items-center justify-center" style="display: none;">
+              <div class="text-center">
+                <img src="./Flowey2.png" alt="Enemy" class="w-32 h-32 object-contain mx-auto mb-4" />
+                <p class="font-pixel">Flowey</p>
+              </div>
+            </div>
+            
+            <!-- Battle Arena -->
+            <div id="battle-arena" class="relative w-full h-full bg-black" style="display: none;">
+              <div id="player-soul" class="absolute text-2xl text-red-500 transition-all duration-100" style="left: 50%; top: 50%; transform: translate(-50%, -50%);">
+                ❤
+              </div>
+              <div class="bullets absolute inset-0"></div>
+            </div>
+            
+            <!-- HP Display -->
+            <div id="hp-display" class="mt-4 font-pixel text-center" style="display: none;">
+              <span class="text-yellow-400">HP</span> 
+              <span id="current-hp" class="text-white">20</span> / 
+              <span id="max-hp" class="text-white">20</span>
+            </div>
+            
+            <!-- Battle Menu -->
+            <div id="battle-menu" class="grid grid-cols-4 gap-2 mt-4" style="display: none;">
+              <button class="battle-btn" data-action="fight">FIGHT</button>
+              <button class="battle-btn" data-action="act">ACT</button>
+              <button class="battle-btn" data-action="item">ITEM</button>
+              <button class="battle-btn" data-action="mercy">MERCY</button>
+            </div>
+            
+            <!-- Start Message -->
+            <div id="start-message" class="flex items-center justify-center h-full">
+              <p class="font-pixel text-center opacity-70">
+                Press START BATTLE to begin!
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Music Section -->
+  <section id="music" class="relative py-20 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-r from-black via-blue-900/10 to-black"></div>
+    
+    <div class="relative z-10 max-w-6xl mx-auto px-6">
+      <h3 class="font-pixel text-4xl md:text-5xl mb-16 text-center" data-aos="zoom-in">
+        <span class="neon-blue">Megalovania</span>
+      </h3>
+      
+      <div class="space-y-12">
+        <!-- Video Player -->
+        <div id="megalovania-container" class="relative pb-[56.25%] h-0 rounded-2xl overflow-hidden shadow-2xl border-2 border-blue-500/30 hover:border-blue-500/50 transition-all duration-500" data-aos="zoom-in">
+          <video id="megalovania-video" class="absolute inset-0 w-full h-full" src="./Sans_battle.mp4" preload="metadata"></video>
+          <button id="megalovania-play" class="absolute inset-0 flex items-center justify-center bg-black/50 hover:bg-black/30 transition-all duration-300">
+            <div class="text-8xl text-white/80 hover:text-blue-400 hover:scale-110 transition-all duration-300">▶</div>
+          </button>
+          
+          <!-- Custom video controls -->
+          <div id="video-controls" class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 opacity-0 hover:opacity-100 transition-opacity duration-300">
+            <div class="flex items-center gap-4">
+              <button id="play-pause" class="text-white hover:text-blue-400 transition-colors">⏸</button>
+              <div class="flex-1 bg-white/20 rounded-full h-2 relative">
+                <div id="progress-bar" class="absolute left-0 top-0 h-full bg-blue-500 rounded-full transition-all duration-100" style="width: 0%"></div>
+              </div>
+              <span id="time-display" class="font-pixel text-xs">0:00 / 0:00</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Music Info -->
+        <div class="grid md:grid-cols-2 gap-8" data-aos="fade-up" data-aos-delay="200">
+          <div class="bg-black/50 rounded-2xl p-8 border border-white/10 hover:border-blue-500/30 transition-all duration-500">
+            <h4 class="font-pixel text-2xl mb-4 text-blue-400">Track Info</h4>
+            <ul class="space-y-2 text-sm">
+              <li><span class="text-gray-500">Title:</span> MEGALOVANIA</li>
+              <li><span class="text-gray-500">Composer:</span> Toby Fox</li>
+              <li><span class="text-gray-500">BPM:</span> 120</li>
+              <li><span class="text-gray-500">Key:</span> D Minor</li>
+            </ul>
+          </div>
+          
+          <div class="bg-black/50 rounded-2xl p-8 border border-white/10 hover:border-blue-500/30 transition-all duration-500">
+            <h4 class="font-pixel text-2xl mb-4 text-blue-400">About</h4>
+            <p class="text-sm leading-relaxed opacity-90">
+              Sans戦で流れる楽曲。その激しいビートと印象的なメロディーは、
+              多くのプレイヤーの心に刻まれている。
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Creator Section -->
+  <section class="relative py-20 bg-gradient-to-b from-black via-purple-900/20 to-black" data-aos="fade-up">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row items-center gap-12">
+        <div class="relative group">
+          <div class="absolute -inset-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full opacity-30 group-hover:opacity-50 blur-xl transition-opacity duration-500"></div>
+          <img src="./Toby.png" alt="Toby Fox" class="relative w-48 h-48 rounded-full shadow-2xl border-4 border-white/20 group-hover:border-white/40 transition-all duration-500" />
+        </div>
+        
+        <div class="flex-1 space-y-4">
+          <h4 class="font-pixel text-3xl text-purple-400">Toby Fox</h4>
+          <p class="leading-relaxed">
+            インディーゲーム開発者・作曲家。「UNDERTALE」をほぼ一人で制作し、
+            ゲーム業界に革命をもたらした。その独創的な物語と音楽は、
+            世界中のプレイヤーに愛され続けている。
+          </p>
+          <div class="flex gap-4 pt-4">
+            <a href="https://twitter.com/tobyfox" target="_blank" class="px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg font-pixel text-sm transition-all duration-300 hover:scale-105">
+              Twitter
+            </a>
+            <a href="https://deltarune.com/" target="_blank" class="px-4 py-2 bg-pink-600 hover:bg-pink-700 rounded-lg font-pixel text-sm transition-all duration-300 hover:scale-105">
+              DELTARUNE
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="relative bg-black border-t border-white/10 py-8">
+    <div class="max-w-6xl mx-auto px-6 text-center space-y-4">
+      <p class="font-pixel text-sm opacity-70">
+        © 2025 Toby Fox / 8-4, Ltd.
+      </p>
+      <p class="text-xs opacity-50">
+        このサイトはファンメイドの紹介ページであり、公式ではありません。
+      </p>
+      <div class="pt-4">
+        <span class="inline-block text-red-500 animate-heartbeat">❤</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Hidden Audio Elements -->
+  <audio id="flowey-sound" preload="auto">
+    <source src="./Flowey.mp4" type="audio/mp4">
+  </audio>
+  
+  <audio id="sans-sound" preload="auto">
+    <source src="./Sans.mp4" type="audio/mp4">
+  </audio>
+  
+  <audio id="hero-sound" preload="auto">
+    <source src="./Hero.mp4" type="audio/mp4">
+  </audio>
+  
+  <audio id="dream-sound" preload="auto">
+    <source src="./Dream.mp4" type="audio/mp4">
+  </audio>
+  
+  <audio id="finale-sound" preload="auto" loop>
+    <source src="./Finale.mp4" type="audio/mp4">
+  </audio>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    // Initialize AOS
+    AOS.init({ 
+      once: true, 
+      duration: 800, 
+      easing: 'ease-out-cubic',
+      offset: 100
+    });
+    
+    // Game state
+    const gameState = {
+      hp: 20,
+      maxHp: 20,
+      atk: 0,
+      def: 0,
+      healBonus: 0,
+      inventory: [],
+      battleActive: false,
+      siteInverted: false,
+      siteGrayscale: false
+    };
+    
+    // Item definitions
+    const items = {
+      pie: { name: 'バタースコッチパイ', effect: 'HP全回復', icon: '🥧' },
+      knife: { name: 'ほんもののナイフ', effect: '攻撃力：99ATK', icon: '🔪' },
+      locket: { name: 'ロケット', effect: '防御力：99DEF', icon: '💎' },
+      stick: { name: 'ぼうきれ', effect: '攻撃力：0ATK', icon: '🌿' },
+      bandage: { name: 'ほうたい', effect: '防御力：0DEF／装備時回復量＋10HP', icon: '🩹' }
+    };
+    
+/* ---------------- Opening skip handler (改修版) ---------------- */
+document.addEventListener('DOMContentLoaded', initOpeningSkip);
+
+function initOpeningSkip () {
+  const openingScreen = document.getElementById('opening-screen');
+  const openingVideo  = document.getElementById('opening-video');
+  const loadingScreen = document.getElementById('loading-screen');
+  if (!openingScreen || !openingVideo) return;   // 万一の保険
+
+  const skipOpening = () => {
+    openingVideo.pause();
+    openingScreen.style.display = 'none';
+    loadingScreen.style.display = 'flex';          // ローディング開始
+    setTimeout(() => {
+      loadingScreen.style.opacity = 0;
+      setTimeout(() => loadingScreen.style.display = 'none', 500);
+    }, 1500);
+  };
+
+  /* クリック／タッチ／動画終了いずれでもスキップ */
+  openingScreen.addEventListener('click',  skipOpening);
+  openingVideo .addEventListener('click',  skipOpening);
+  openingVideo .addEventListener('touchstart', skipOpening);
+  openingVideo .addEventListener('ended', skipOpening);
+}
+/* -------------------------------------------------------------- */
+    
+    // Generate stars
+    function generateStars() {
+      const starsContainer = document.getElementById('stars-container');
+      const starCount = 100;
+      
+      for (let i = 0; i < starCount; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.left = `${Math.random() * 100}%`;
+        star.style.top = `${Math.random() * 100}%`;
+        star.style.animationDelay = `${Math.random() * 4}s`;
+        star.style.animationDuration = `${3 + Math.random() * 2}s`;
+        starsContainer.appendChild(star);
+      }
+    }
+    generateStars();
+    
+    // Update stats display
+    function updateStats() {
+      document.getElementById('hp-stat').textContent = `${gameState.hp}/${gameState.maxHp}`;
+      document.getElementById('atk-stat').textContent = gameState.atk;
+      document.getElementById('def-stat').textContent = gameState.def;
+      document.getElementById('item-count').textContent = gameState.inventory.length;
+    }
+    updateStats();
+    
+    // Mobile menu toggle
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+    
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          // Close mobile menu if open
+          mobileMenu.classList.add('hidden');
+        }
+      });
+    });
+    
+    // Start Journey button animation
+    document.getElementById('start-journey').addEventListener('click', () => {
+      document.getElementById('characters').scrollIntoView({ behavior: 'smooth' });
+    });
+    
+    // Character interactions
+    const floweyImg = document.getElementById('flowey-img');
+    const floweySE = document.getElementById('flowey-sound');
+    floweySE.volume = 0.5;
+    
+    floweyImg.addEventListener('click', () => {
+      floweySE.currentTime = 0;
+      floweySE.play().catch(() => {});
+      floweyImg.classList.add('animate-shake');
+      setTimeout(() => floweyImg.classList.remove('animate-shake'), 500);
+    });
+    
+    // Sans click handler with toggle
+    const sansImg = document.getElementById('sans-img');
+    const sansSE = document.getElementById('sans-sound');
+    sansSE.volume = 0.5;
+    let sansPlaying = false;
+    
+    sansImg.addEventListener('click', () => {
+      if (!sansPlaying) {
+        sansSE.currentTime = 0;
+        sansSE.play().catch(() => {});
+        sansPlaying = true;
+      } else {
+        sansSE.pause();
+        sansPlaying = false;
+      }
+    });
+    
+    // Undyne transformation with toggle
+    const undyneImg = document.getElementById('undyne-img');
+    const heroSE = document.getElementById('hero-sound');
+    heroSE.volume = 0.5;
+    let undyneTransformed = false;
+    let heroPlaying = false;
+    
+    undyneImg.addEventListener('click', () => {
+      if (!undyneTransformed) {
+        undyneImg.style.transition = 'all 0.5s ease-in-out';
+        undyneImg.style.transform = 'scale(1.1) rotate(360deg)';
+        setTimeout(() => {
+          undyneImg.src = './Undyne2.png';
+          undyneImg.style.transform = 'scale(1)';
+        }, 500);
+        heroSE.currentTime = 0;
+        heroSE.play().catch(() => {});
+        heroPlaying = true;
+        undyneTransformed = true;
+      } else if (heroPlaying) {
+        heroSE.pause();
+        heroPlaying = false;
+      } else {
+        heroSE.play().catch(() => {});
+        heroPlaying = true;
+      }
+    });
+    
+    // Asriel transformation with toggle
+    const asrielImg = document.getElementById('asriel-img');
+    const dreamSE = document.getElementById('dream-sound');
+    dreamSE.volume = 0.5;
+    let asrielTransformed = false;
+    let dreamPlaying = false;
+    
+    asrielImg.addEventListener('click', () => {
+      if (!asrielTransformed) {
+        asrielImg.style.transition = 'all 0.5s ease-in-out';
+        asrielImg.style.transform = 'scale(1.1) rotate(360deg)';
+        setTimeout(() => {
+          asrielImg.src = './Asriel2.png';
+          asrielImg.style.transform = 'scale(1)';
+        }, 500);
+        dreamSE.currentTime = 0;
+        dreamSE.play().catch(() => {});
+        dreamPlaying = true;
+        asrielTransformed = true;
+      } else if (dreamPlaying) {
+        dreamSE.pause();
+        dreamPlaying = false;
+      } else {
+        dreamSE.play().catch(() => {});
+        dreamPlaying = true;
+      }
+    });
+    
+    // Route card handlers
+    function playRouteVideo(src, closeBrowser = false) {
+      const overlay = document.createElement('div');
+      overlay.className = 'fixed inset-0 z-[9999] flex items-center justify-center bg-black backdrop-blur-sm';
+      overlay.style.animation = 'fadeIn 0.5s ease-out';
+      document.body.appendChild(overlay);
+
+      const video = document.createElement('video');
+      video.src = src;
+      video.className = 'w-full h-full object-contain';
+      video.autoplay = true;
+      video.playsInline = true;
+      video.disablePictureInPicture = true;
+      overlay.appendChild(video);
+      
+      // Add close button
+      const closeBtn = document.createElement('button');
+      closeBtn.className = 'absolute top-4 right-4 text-white text-4xl hover:text-red-500 transition-colors duration-300 font-pixel';
+      closeBtn.textContent = '×';
+      overlay.appendChild(closeBtn);
+
+      const cleanUp = () => {
+        overlay.style.animation = 'fadeOut 0.5s ease-out';
+        setTimeout(() => {
+          overlay.remove();
+          if (closeBrowser) {
+            try { window.close(); } catch (_) {}
+          }
+        }, 500);
+      };
+
+      video.onended = cleanUp;
+      closeBtn.addEventListener('click', cleanUp);
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) cleanUp();
+      });
+    }
+    
+    // Enhanced Genocide prompt
+    function showGenocidePrompt() {
+      const overlay = document.createElement('div');
+      overlay.id = 'genocide-prompt';
+      overlay.className = 'fixed inset-0 z-[9998] flex flex-col items-center justify-center bg-black text-white font-pixel text-center p-6';
+      overlay.style.animation = 'fadeIn 0.5s ease-out';
+      document.body.appendChild(overlay);
+      
+      // Glitch background effect
+      const glitchBg = document.createElement('div');
+      glitchBg.className = 'absolute inset-0 opacity-20';
+      glitchBg.style.background = 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,0,0,0.1) 2px, rgba(255,0,0,0.1) 4px)';
+      glitchBg.style.animation = 'glitch 0.3s infinite';
+      overlay.appendChild(glitchBg);
+
+      const charaImg = document.createElement('img');
+      charaImg.src = './Chara.png';
+      charaImg.alt = 'Chara';
+      charaImg.className = 'absolute bottom-4 left-4 w-32 h-auto object-contain pointer-events-none opacity-50 animate-float';
+      overlay.appendChild(charaImg);
+
+      const message = document.createElement('div');
+      message.className = 'relative z-10 space-y-4 mb-12 text-2xl leading-relaxed font-pixel tracking-widest text-red-600';
+      message.style.textShadow = '0 0 10px #ff0000, 0 0 20px #880000, 0 0 30px #440000';
+      message.innerHTML = `
+        <div class="animate-fadeInUp">・・・私たちはついに極致に到達した・・・</div>
+        <div class="animate-fadeInUp" style="animation-delay: 0.5s;">ここにはもう私たちに必要なものはない・・・</div>
+        <div class="animate-fadeInUp" style="animation-delay: 1s;">こんな世界は今すぐ消し去り・・・</div>
+        <div class="animate-fadeInUp" style="animation-delay: 1.5s;">次へ進もう・・・</div>
+      `;
+      overlay.appendChild(message);
+
+      const btnBox = document.createElement('div');
+      btnBox.className = 'relative z-10 flex gap-12 animate-fadeInUp';
+      btnBox.style.animationDelay = '2s';
+      overlay.appendChild(btnBox);
+
+      const baseBtnStyle = 'relative px-10 py-4 rounded-xl text-2xl font-pixel tracking-wider shadow-2xl overflow-hidden transition-all duration-300 hover:scale-110';
+
+      const eraseBtn = document.createElement('button');
+      eraseBtn.textContent = 'けす';
+      eraseBtn.className = baseBtnStyle + ' bg-red-800 hover:bg-red-900 text-white';
+      eraseBtn.style.textShadow = '0 0 10px #ff2222, 0 0 20px #ff4444';
+      eraseBtn.style.animation = 'heartbeat 1.5s infinite';
+      btnBox.appendChild(eraseBtn);
+
+      const keepBtn = document.createElement('button');
+      keepBtn.textContent = 'けさない';
+      keepBtn.className = baseBtnStyle + ' bg-gray-800 hover:bg-gray-900 text-gray-100';
+      keepBtn.style.textShadow = '0 0 10px #888888, 0 0 20px #bbbbbb';
+      btnBox.appendChild(keepBtn);
+
+      // Dark ambient sound
+      const bgm = new Audio('./ominous.mp4');
+      bgm.loop = true;
+      bgm.volume = 0.3;
+      bgm.play().catch(() => {});
+
+      const stopBgm = () => {
+        bgm.pause();
+        bgm.currentTime = 0;
+      };
+
+      eraseBtn.addEventListener('click', () => {
+        stopBgm();
+        // Screen corruption effect
+        overlay.style.animation = 'glitch 0.1s infinite';
+        setTimeout(() => {
+          overlay.style.background = 'black';
+          overlay.innerHTML = '';
+          setTimeout(() => {
+            try { window.close(); } catch (_) {}
+            overlay.remove();
+          }, 1000);
+        }, 500);
+      });
+
+      keepBtn.addEventListener('click', () => {
+        stopBgm();
+        overlay.style.animation = 'fadeOut 0.5s ease-out';
+        setTimeout(() => {
+          overlay.remove();
+          playRouteVideo('./Genocide.mp4', true);
+        }, 500);
+      });
+
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+          stopBgm();
+          overlay.style.animation = 'fadeOut 0.5s ease-out';
+          setTimeout(() => overlay.remove(), 500);
+        }
+      });
+    }
+    
+    // Route card click handlers
+    document.getElementById('pacifist-card').addEventListener('click', () => playRouteVideo('./Pacifist.mp4'));
+    document.getElementById('neutral-card').addEventListener('click', () => playRouteVideo('./Neutral.mp4'));
+    document.getElementById('genocide-card').addEventListener('click', showGenocidePrompt);
+    
+    // Enhanced Megalovania video player
+    const megVideo = document.getElementById('megalovania-video');
+    const megPlay = document.getElementById('megalovania-play');
+    const videoControls = document.getElementById('video-controls');
+    const playPause = document.getElementById('play-pause');
+    const progressBar = document.getElementById('progress-bar');
+    const timeDisplay = document.getElementById('time-display');
+    
+    megVideo.setAttribute('controls', '');
+    megVideo.controlsList = 'nodownload';
+    
+    megPlay.addEventListener('click', () => {
+      megVideo.play();
+      megPlay.style.display = 'none';
+      playPause.textContent = '⏸';
+    });
+    
+    playPause.addEventListener('click', () => {
+      if (megVideo.paused) {
+        megVideo.play();
+        playPause.textContent = '⏸';
+        megPlay.style.display = 'none';
+      } else {
+        megVideo.pause();
+        playPause.textContent = '▶';
+        megPlay.style.display = 'flex';
+      }
+    });
+    
+    megVideo.addEventListener('timeupdate', () => {
+      const percent = (megVideo.currentTime / megVideo.duration) * 100;
+      progressBar.style.width = percent + '%';
+      
+      const currentMinutes = Math.floor(megVideo.currentTime / 60);
+      const currentSeconds = Math.floor(megVideo.currentTime % 60).toString().padStart(2, '0');
+      const durationMinutes = Math.floor(megVideo.duration / 60);
+      const durationSeconds = Math.floor(megVideo.duration % 60).toString().padStart(2, '0');
+      
+      timeDisplay.textContent = `${currentMinutes}:${currentSeconds} / ${durationMinutes}:${durationSeconds}`;
+    });
+    
+    megVideo.addEventListener('ended', () => {
+      megPlay.style.display = 'flex';
+      playPause.textContent = '▶';
+    });
+    
+    // Battle system
+    const startBattleBtn = document.getElementById('start-battle');
+    const battleArena = document.getElementById('battle-arena');
+    const enemyDisplay = document.getElementById('enemy-display');
+    const hpDisplay = document.getElementById('hp-display');
+    const battleMenu = document.getElementById('battle-menu');
+    const startMessage = document.getElementById('start-message');
+    const playerSoul = document.getElementById('player-soul');
+    const currentHpSpan = document.getElementById('current-hp');
+    const maxHpSpan = document.getElementById('max-hp');
+    const finaleSE = document.getElementById('finale-sound');
+    finaleSE.volume = 0.3;
+    
+    let soulX = 50;
+    let soulY = 50;
+    let battleInterval;
+    
+    // Keyboard controls for battle
+    const keys = {};
+    document.addEventListener('keydown', (e) => {
+      keys[e.key] = true;
+      
+      if (gameState.battleActive) {
+        // Move soul
+        if (keys['ArrowUp'] || keys['w'] || keys['W']) soulY = Math.max(5, soulY - 3);
+        if (keys['ArrowDown'] || keys['s'] || keys['S']) soulY = Math.min(95, soulY + 3);
+        if (keys['ArrowLeft'] || keys['a'] || keys['A']) soulX = Math.max(5, soulX - 3);
+        if (keys['ArrowRight'] || keys['d'] || keys['D']) soulX = Math.min(95, soulX + 3);
+        
+        playerSoul.style.left = soulX + '%';
+        playerSoul.style.top = soulY + '%';
+      }
+    });
+    
+    document.addEventListener('keyup', (e) => {
+      keys[e.key] = false;
+    });
+    
+    // Start battle
+    startBattleBtn.addEventListener('click', () => {
+      gameState.battleActive = true;
+      startMessage.style.display = 'none';
+      enemyDisplay.style.display = 'flex';
+      battleArena.style.display = 'block';
+      hpDisplay.style.display = 'block';
+      battleMenu.style.display = 'grid';
+      
+      // Play battle music
+      finaleSE.currentTime = 0;
+      finaleSE.play().catch(() => {});
+      
+      // Reset position
+      soulX = 50;
+      soulY = 50;
+      playerSoul.style.left = '50%';
+      playerSoul.style.top = '50%';
+      
+      // Start bullet generation
+      battleInterval = setInterval(generateBullet, 600);
+    });
+    
+    // Generate bullets for battle
+    function generateBullet() {
+      if (!gameState.battleActive) return;
+      
+      const bullet = document.createElement('div');
+      const side = Math.floor(Math.random() * 4);
+      let x, y, vx, vy;
+      
+      switch(side) {
+        case 0: // top
+          x = Math.random() * 100;
+          y = 0;
+          vx = (Math.random() - 0.5) * 2;
+          vy = 1 + Math.random();
+          break;
+        case 1: // right
+          x = 100;
+          y = Math.random() * 100;
+          vx = -(1 + Math.random());
+          vy = (Math.random() - 0.5) * 2;
+          break;
+        case 2: // bottom
+          x = Math.random() * 100;
+          y = 100;
+          vx = (Math.random() - 0.5) * 2;
+          vy = -(1 + Math.random());
+          break;
+        case 3: // left
+          x = 0;
+          y = Math.random() * 100;
+          vx = 1 + Math.random();
+          vy = (Math.random() - 0.5) * 2;
+          break;
+      }
+      
+      bullet.className = 'absolute w-3 h-3 bg-white rounded-full';
+      bullet.style.left = x + '%';
+      bullet.style.top = y + '%';
+      bullet.dataset.vx = vx;
+      bullet.dataset.vy = vy;
+      
+      battleArena.querySelector('.bullets').appendChild(bullet);
+      
+      // Animate bullet
+      const animateBullet = setInterval(() => {
+        x += parseFloat(bullet.dataset.vx);
+        y += parseFloat(bullet.dataset.vy);
+        
+        if (x < -10 || x > 110 || y < -10 || y > 110) {
+          bullet.remove();
+          clearInterval(animateBullet);
+        } else {
+          bullet.style.left = x + '%';
+          bullet.style.top = y + '%';
+          
+          // Check collision
+          const bulletRect = bullet.getBoundingClientRect();
+          const soulRect = playerSoul.getBoundingClientRect();
+          
+          if (bulletRect.left < soulRect.right &&
+              bulletRect.right > soulRect.left &&
+              bulletRect.top < soulRect.bottom &&
+              bulletRect.bottom > soulRect.top) {
+            // Take damage
+            takeDamage(Math.floor(Math.random() * 3) + 1);
+            bullet.remove();
+            clearInterval(animateBullet);
+          }
+        }
+      }, 20);
+    }
+    
+    // Take damage
+    function takeDamage(amount) {
+      const actualDamage = Math.max(1, amount - gameState.def);
+      gameState.hp = Math.max(0, gameState.hp - actualDamage);
+      currentHpSpan.textContent = gameState.hp;
+      updateStats();
+      
+      playerSoul.classList.add('animate-damage');
+      setTimeout(() => playerSoul.classList.remove('animate-damage'), 500);
+      
+      if (gameState.hp <= 0) {
+        gameOver();
+      }
+    }
+    
+    // Game over
+    function gameOver() {
+      gameState.battleActive = false;
+      clearInterval(battleInterval);
+      finaleSE.pause();
+      
+      // Clear bullets
+      battleArena.querySelector('.bullets').innerHTML = '';
+      
+      // Show game over
+      const gameOverDiv = document.createElement('div');
+      gameOverDiv.className = 'absolute inset-0 bg-black/90 flex items-center justify-center';
+      gameOverDiv.innerHTML = `
+        <div class="text-center">
+          <p class="font-pixel text-2xl text-red-500 mb-4">GAME OVER</p>
+          <p class="font-pixel text-sm opacity-70">でも、<span class="text-yellow-400">ケツイ</span>があれば...</p>
+        </div>
+      `;
+      battleArena.appendChild(gameOverDiv);
+      
+      setTimeout(() => {
+        gameOverDiv.remove();
+        enemyDisplay.style.display = 'none';
+        battleArena.style.display = 'none';
+        hpDisplay.style.display = 'none';
+        battleMenu.style.display = 'none';
+        startMessage.style.display = 'flex';
+        gameState.hp = gameState.maxHp;
+        currentHpSpan.textContent = gameState.hp;
+        updateStats();
+      }, 3000);
+    }
+    
+    // Battle menu actions
+    battleMenu.addEventListener('click', (e) => {
+      if (e.target.matches('.battle-btn')) {
+        const action = e.target.dataset.action;
+        
+        switch(action) {
+          case 'fight':
+            console.log('FIGHT selected');
+            break;
+          case 'act':
+            console.log('ACT selected');
+            break;
+          case 'item':
+            showBattleInventory();
+            break;
+          case 'mercy':
+            console.log('MERCY selected');
+            // End battle
+            gameState.battleActive = false;
+            clearInterval(battleInterval);
+            finaleSE.pause();
+            battleArena.querySelector('.bullets').innerHTML = '';
+            enemyDisplay.style.display = 'none';
+            battleArena.style.display = 'none';
+            hpDisplay.style.display = 'none';
+            battleMenu.style.display = 'none';
+            startMessage.style.display = 'flex';
+            break;
+        }
+      }
+    });
+    
+    // Show inventory in battle
+    function showBattleInventory() {
+      const inventoryWindow = document.getElementById('inventory-window');
+      inventoryWindow.style.display = 'block';
+    }
+    
+    // Item collection system
+    const hiddenItems = document.querySelectorAll('.hidden-item');
+    
+    hiddenItems.forEach(item => {
+      // Make items gradually visible as user scrolls near them
+      window.addEventListener('scroll', () => {
+        const rect = item.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          item.classList.add('found');
+        }
+      });
+      
+      item.addEventListener('click', () => {
+        const itemKey = item.dataset.item;
+        if (!gameState.inventory.includes(itemKey)) {
+          gameState.inventory.push(itemKey);
+          item.style.display = 'none';
+          updateStats();
+          showItemNotification(items[itemKey]);
+        }
+      });
+    });
+    
+    // Show item notification
+    function showItemNotification(item) {
+      const notification = document.createElement('div');
+      notification.className = 'fixed top-20 left-1/2 transform -translate-x-1/2 bg-black border-2 border-white p-4 font-pixel z-[1000]';
+      notification.innerHTML = `
+        <p>* ${item.name}を手に入れた！</p>
+        <p class="text-sm opacity-70 mt-2">${item.effect}</p>
+      `;
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.style.animation = 'fadeOut 0.5s ease-out';
+        setTimeout(() => notification.remove(), 500);
+      }, 3000);
+    }
+    
+    // Inventory management
+    const openInventoryBtn = document.getElementById('open-inventory');
+    const closeInventoryBtn = document.getElementById('close-inventory');
+    const inventoryWindow = document.getElementById('inventory-window');
+    const inventoryList = document.getElementById('inventory-list');
+    
+    openInventoryBtn.addEventListener('click', () => {
+      updateInventoryDisplay();
+      inventoryWindow.style.display = 'block';
+    });
+    
+    closeInventoryBtn.addEventListener('click', () => {
+      inventoryWindow.style.display = 'none';
+    });
+    
+    // Update inventory display
+    function updateInventoryDisplay() {
+      inventoryList.innerHTML = '';
+      
+      if (gameState.inventory.length === 0) {
+        inventoryList.innerHTML = '<p class="text-center opacity-50">アイテムがありません</p>';
+        return;
+      }
+      
+      gameState.inventory.forEach((itemKey, index) => {
+        const item = items[itemKey];
+        const itemDiv = document.createElement('div');
+        itemDiv.className = 'inventory-item';
+        itemDiv.innerHTML = `
+          <div>
+            <span>${item.icon} ${item.name}</span>
+            <span class="text-xs opacity-70 ml-2">${item.effect}</span>
+          </div>
+          <div class="item-actions">
+            <button class="item-action-btn" data-action="use" data-item="${itemKey}" data-index="${index}">USE</button>
+            <button class="item-action-btn" data-action="drop" data-index="${index}">DROP</button>
+          </div>
+        `;
+        inventoryList.appendChild(itemDiv);
+      });
+    }
+    
+    // Handle inventory actions
+    inventoryList.addEventListener
